@@ -33,4 +33,46 @@ document.querySelector("#reset").addEventListener("click", () => {
 
 /* START CODING HERE */
 
+//Population bigger than 500.000 button
+document.querySelector("#populationBigger").addEventListener("click", () => {
+    let popResult = data.filter(city => city.population > 500000);
+    createTableElements(popResult, "allcities");
+});
 
+//Land area less than 1.000 button
+document.querySelector("#landAreaLess").addEventListener("click", () => {
+    let landResult = data.filter(city => city.landArea < 1000);
+    createTableElements(landResult, "allcities");
+});
+
+//Any city has population less than 100.000? button
+document.querySelector("#isPopulationLess").addEventListener("click", () => {
+  let isPopLess = data.filter(city => city.population < 100000);
+  if(isPopLess) {
+    alert("Yes! at least 1 city has population less than 100.000");
+  };
+});
+
+//Any city has land area bigger than 100.000? button
+document.querySelector("#isLandBigger").addEventListener("click", () => {
+  let isLandMore = data.filter(city => city.landArea > 100);
+  if(isLandMore) {
+    alert("Yes! all cities has land area bigger than 100");
+  }
+});
+
+//Dropdown items added
+let select = document.querySelector("#selectCity"); 
+for (let i = 0; i < data.length; i++) {
+  let opt = data[i].name;
+  let el = document.createElement("option");
+  el.textContent = opt;
+  el.value = opt;
+  select.appendChild(el);               
+}
+
+select.addEventListener("change", () => {
+  let output = select.value; 
+  let selectedCityTable = data.filter(city => city.name == output);
+  createTableElements(selectedCityTable, "singlecity");
+});
